@@ -1,0 +1,25 @@
+name: Run the notebook
+run-name: Test run of the notebook
+on: 
+  push: 
+  schedule:
+    - cron: '0 0 * * *'
+jobs:
+  Run-main-notebook:
+    runs-on: ubuntu-latest
+    environment: n
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+      - run: pip install -r requirements.txt
+      - run: |
+          python3 -m jupyter nbconvert --to notebook --execute --ExecutePreprocessor.kernel_name=python3 --output output.ipynb ${{ github.workspace }}/main.ipynb
+      - name: Upload results
+        uses: actions/upload-artifact@v3
+        with:
+          name: output
+          path: output.ipynb

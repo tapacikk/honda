@@ -1,0 +1,6 @@
+jupyter
+nbconvert
+scipy
+pandas
+requests
+matplotlib

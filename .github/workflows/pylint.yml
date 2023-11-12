@@ -23,3 +23,8 @@ jobs:
         with:
           name: output
           path: output.ipynb
+      - name: Generate report
+        run: |
+          echo "### Best cars as of today" >> $GITHUB_STEP_SUMMARY
+          echo "![Fitted graph of cars](graph.png)" >> $GITHUB_STEP_SUMMARY
+          cat report.txt >> $GITHUB_STEP_SUMMARY

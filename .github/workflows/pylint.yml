@@ -18,19 +18,7 @@ jobs:
       - run: pip install -r requirements.txt
       - run: |
           python3 -m jupyter nbconvert --to notebook --execute --ExecutePreprocessor.kernel_name=python3 --output output.ipynb ${{ github.workspace }}/main.ipynb
-      - name: Upload notebook
-        uses: actions/upload-artifact@v3
-        with:
-          name: output
-          path: output.ipynb
-      - name: Upload graph
-        uses: actions/upload-artifact@v3
-        with:
-          name: graph.png
-          path: graph.png
       - name: Generate report
         run: |
-          GRAPH_URL = https://api.github.com/repos/tapacikk/honda/actions/artifacts\?per_page\=2 | jq '[.artifacts[] | {name : .name, archive_download_url : .archive_download_url}]' | jq -r '.[] | select (.name == "graph.png") | .archive_download_url'
           echo "### Best cars as of today" >> $GITHUB_STEP_SUMMARY
-          echo "![Fitted graph of cars]($GRAPH_URL)" >> $GITHUB_STEP_SUMMARY
           cat report.txt >> $GITHUB_STEP_SUMMARY

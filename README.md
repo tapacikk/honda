@@ -11,3 +11,4 @@ Target websites:
 3. craigslist.com
 
 
+![main-workflow](https://github.com/tapacikk/honda/actions/workflows/main.yml/badge.svg)
